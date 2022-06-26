@@ -1,0 +1,21 @@
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* ab = new ListNode(0);//新建假头节点
+        ab -> next = head;//假头节点的后继结点为真头结点
+        ListNode* slow = ab;//慢指针
+        ListNode* fast = head;//快指针
+        int count = 0;//计数器
+        while(fast!=nullptr){//快指针先后移n次
+            fast = fast->next;
+            count++;
+            if(count>=n)  break;
+        }
+        while(fast!=nullptr){//快慢指针一起移动
+            fast = fast->next;
+            slow = slow->next;
+        }
+        slow -> next = slow->next->next;//删除目标节点
+        return ab->next;
+    }
+};
