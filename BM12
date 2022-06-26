@@ -1,0 +1,14 @@
+class Solution:
+    def sortInList(self , head: ListNode) -> ListNode:
+        # write code here
+        N=[]#数组N
+        while head is not None:
+            N.append(head.val)
+            head=head.next#将单链表中的每个节点的val，依次append到数组里
+        N.sort()#数组升序
+        pre=N1=ListNode(-1)#反转链表
+        for _ in range(len(N)):#将len(N)赋值给 _
+            p=ListNode(N[_])
+            N1.next=p
+            N1=N1.next
+        return pre.next
