@@ -1,0 +1,21 @@
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if(head == NULL || head->next == NULL){//如果头节点为空或者头节点的下一个节点为空直接返回
+            return head;
+        }
+        ListNode* odd = head;//奇链表头节点
+        ListNode* even = head->next;//偶链表头节点
+        ListNode* odd1 = odd;//进行奇链表的操作，最终成为奇链表尾节点
+        ListNode* even1 = even;//进行偶链表的操作，最终成为偶链表尾节点
+        while(odd1->next != NULL && even1->next != NULL){
+            /*1->2->3->4->5*/
+            odd1->next = even1->next;//奇链表的下一个节点应该等于偶数链表的下一个节点,如奇链表1下一位应该指向3
+            odd1 = odd1->next;//奇链表指向下一个节点
+            even1->next = odd1->next;//偶链表的下一个节点应该指向奇链表的下一个节点，如偶链表2下一位应该指向4
+            even1 = even1->next;//偶链表指向下一个节点
+        }
+        odd1->next = even;//最后将奇链表和偶链表拼接
+        return odd;
+    }
+};
