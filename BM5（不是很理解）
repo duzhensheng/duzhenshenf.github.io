@@ -1,0 +1,28 @@
+class Solution {
+public:
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+     vector <int> vec;//定义一个可变大小的数组
+    if (lists.size() == 0)//数组大小
+        return NULL;
+    for (int i = 0; i < lists.size(); ++i)
+    {
+        ListNode *p = lists[i];
+        while (p)
+        {
+            vec.push_back(p->val);
+            p = p->next;
+        }
+    }
+    sort(vec.begin(), vec.end());
+    if (vec.size() == 0)
+        return NULL;
+    ListNode *head = new ListNode(vec[0]);
+    ListNode *p = head;
+    for (int i = 1; i < vec.size(); ++i)
+    {
+        p->next = new ListNode(vec[i]);
+        p = p->next;
+    }
+    return head;   
+    }
+};
