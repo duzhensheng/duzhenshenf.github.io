@@ -1,0 +1,9 @@
+class Solution:
+    def isPail(self , head: ListNode) -> bool:
+        cur=head#cur指向列表头，充当head作用
+        n=[]#用来存放链表节点值的列表
+        while cur:
+            n.append(cur.val)
+            cur=cur.next#循环将各个节点的值保存到列表中
+        a = (n == n[::-1])#判断逆序列表与原列表是否相等，并将值保存在a中
+        return a
