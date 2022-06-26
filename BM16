@@ -1,0 +1,17 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode *a = new ListNode(0), *pre = a;
+        a->next = head;
+        while (pre->next) {
+            int t = pre->next->val;
+            ListNode* tmp = pre->next;
+            if (tmp->next && tmp->val == tmp->next->val) { // 判断是否有重复元素
+                for (; tmp && tmp->val == t; tmp = tmp->next);
+                pre->next = tmp; // pre 的 next 成员跨过所有重复元素指向 tmp
+            }
+            else pre = tmp;
+        }
+        return a->next;
+    }
+};
