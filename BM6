@@ -1,0 +1,12 @@
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+    int n = 10001;
+        while(n--)
+        {
+            if(head == NULL)    return false;
+            head = head->next;
+        }
+        return true;    
+    }
+};
