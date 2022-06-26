@@ -1,0 +1,18 @@
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* pHead, int k) {
+        ListNode* fast = pHead;
+        ListNode* slow = pHead;
+        for(int i = 0; i < k; i++){ 
+            if(fast != NULL)
+                fast = fast->next;//快指针先行k步
+            else
+                return slow = NULL;//达不到k步说明链表过短，没有倒数k
+        }
+        while(fast != NULL){
+            fast = fast->next;
+            slow = slow->next;
+        }//快慢指针同步，快指针先到底，慢指针指向倒数第k个
+        return slow;
+    }
+};
