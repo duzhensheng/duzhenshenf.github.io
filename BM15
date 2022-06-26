@@ -1,0 +1,15 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+       if (head == nullptr || head->next == nullptr)        
+        return head;//空链表或者只有一个节点的链表直接返回
+    ListNode* n = head;//引入一个n指针指向链表的头结点
+    while (n->next) {
+        if (n->val == n->next->val)//判断当前节点是否与下一个节点的值相等，相等则直接删除下一个节点
+            n->next = n->next->next;
+        else//当前节点与下一个节点的值不相等，则直接滑动指针
+            n = n->next;
+    }
+    return head;
+    }
+};
