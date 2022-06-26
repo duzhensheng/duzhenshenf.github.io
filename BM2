@@ -1,0 +1,20 @@
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        ListNode* head1=new ListNode(-1); //新建一个假的头结点，找第m个结点的前一个结点
+        head1->next=head;
+        ListNode *pre=head1;
+        for(int i=0;i<m-1;i++){//pre指向第m-1个结点
+            pre=pre->next;
+        }
+        ListNode *p=pre->next;//p指向第m个结点
+        ListNode *next=p->next;
+        for(int i=0;i<n-m;i++){//要n-m要反转结点依次进行反转，具体为对next指向结点头插法插入p指向结点前     
+            p->next=next->next;//当前结点指向后结点的后结点
+            next->next=pre->next;//后继结点指向当前结点
+            pre->next=next;//前驱结点指向后继结点
+            next=p->next;//后移后继结点
+        }
+        return head1->next;
+    }
+};
