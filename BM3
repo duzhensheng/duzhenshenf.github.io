@@ -1,0 +1,17 @@
+class Solution:
+    def reverseKGroup(self , head: ListNode, k: int) -> ListNode:
+        cur = head #head为k节点第一个
+        count = 0
+        while cur and count!= k:
+            cur = cur.next
+            count += 1
+        if count == k:
+            cur = self.reverseKGroup(cur, k)#循环到最后不足k的节点
+            while count:
+                tmp = head.next#临时存放head.next
+                head.next = cur
+                cur = head
+                head = tmp
+                count -= 1
+            head = cur   
+        return head
