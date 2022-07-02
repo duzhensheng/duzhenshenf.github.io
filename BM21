@@ -1,0 +1,11 @@
+import java.util.*;
+import java.util.ArrayList;
+public class Solution {
+    public int minNumberInRotateArray(int [] array) {
+     if(array.length==0){
+           return 0;
+       }
+        Arrays.sort(array);
+        return array[0];
+    }
+}
