@@ -1,0 +1,16 @@
+public class Solution {
+    public int InversePairs(int [] array) {
+        int sum=0;
+        for(int i=0;i<array.length;i++){
+            int temp=i+1;
+            while(array.length>temp){
+                if(array[i]>array[temp]){
+                    sum++;
+                }
+                temp++;
+            }
+            sum=sum%1000000007;//为了防止sum溢出
+        }
+        return sum;
+    }
+}
