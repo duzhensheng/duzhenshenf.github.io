@@ -1,0 +1,14 @@
+public class Solution {
+    public boolean Find(int target, int [][] array) {
+         for(int i=0;i<array.length;i++){
+        for(int j=0;j<array[0].length;j++){
+            if(array[i][j]==target){
+                return true;
+            }
+        }
+    }
+    return false;
+    }
+}
+//array.length代表的是二维数组行的长度，也可以看成每个二维数组中所包含的数组的数量。
+//array[i].length代表的是对应行的长度。
