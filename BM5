@@ -9,7 +9,7 @@ public:
         ListNode *p = lists[i];
         while (p)
         {
-            vec.push_back(p->val);
+            vec.push_back(p->val);为函数函数将一个新的元素加到vec的最后面，位置为当前最后一个元素的下一个元素。
             p = p->next;
         }
     }
