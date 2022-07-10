@@ -1,0 +1,24 @@
+import java.util.*;
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode reConstructBinaryTree(int [] pre,int [] vin) {
+        if (pre.length == 0 || vin.length == 0)
+            return null;
+        int i = 0;
+        TreeNode  head = new TreeNode(pre[0]);
+        while (vin[i] != pre[0]) {
+            i++;
+        }
+        head.left = reConstructBinaryTree(Arrays.copyOfRange(pre, 1, i + 1),Arrays.copyOfRange(vin, 0, i));
+        head.right = reConstructBinaryTree(Arrays.copyOfRange(pre, i + 1, pre.length),Arrays.copyOfRange(vin, i + 1, vin.length));
+        return head;
+    }
+}
