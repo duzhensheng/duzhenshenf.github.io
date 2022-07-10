@@ -1,0 +1,28 @@
+import java.util.*;
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    TreeNode pre=null;//pre指针保存当次遍历之前的结点
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        if(pRootOfTree==null)return null;
+        Convert(pRootOfTree.right);//将pRootOfTree转换到pRootOfTree.right
+        if(pre!=null){
+            pRootOfTree.right=pre;
+            pre.left=pRootOfTree;
+        }
+        pre=pRootOfTree;
+        Convert(pRootOfTree.left);
+        return pre;
+    }
+}
