@@ -1,0 +1,38 @@
+import java.util.*;
+
+/*
+ * public class TreeNode {
+ *   int val = 0;
+ *   TreeNode left = null;
+ *   TreeNode right = null;
+ * }
+ */
+
+public class Solution {
+    /**
+     * 
+     * @param root TreeNode类 
+     * @return int整型ArrayList<ArrayList<>>
+     */
+    public ArrayList<ArrayList<Integer>> levelOrder (TreeNode root) {
+        ArrayList<ArrayList<Integer> > res = new ArrayList();
+        if(root == null)
+            return res;//如果是空，则直接返回空数组
+        Queue<TreeNode> arl = new ArrayDeque<TreeNode>();
+        arl.add(root);//队列存储，进行层次遍历
+        while(!arl.isEmpty()){//循环队列，当队列为空的时候就停下来
+            ArrayList<Integer> row = new ArrayList(); //记录二叉树的某一行
+            int n = arl.size();
+            for(int i = 0; i < n; i++){
+                TreeNode cur = arl.poll();
+                row.add(cur.val);
+                if(cur.left != null)
+                    arl.add(cur.left);
+                if(cur.right != null)
+                    arl.add(cur.right);
+            }
+            res.add(row);
+        }
+        return res;
+    }
+}
