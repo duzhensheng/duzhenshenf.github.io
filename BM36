@@ -1,0 +1,11 @@
+public class Solution {
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if(root == null) return true;
+        if(Math.abs(getHegih(root.left) - getHegih(root.right)) > 1) return false;
+        return IsBalanced_Solution(root.left) && IsBalanced_Solution(root.right);
+    }
+    private int getHegih(TreeNode root){
+        if(root == null) return 0;
+        return 1 + Math.max(getHegih(root.left),getHegih(root.right));
+    }
+}
