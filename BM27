@@ -1,0 +1,39 @@
+import java.util.*;
+import java.util.ArrayList;
+
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    public ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+       ArrayList<ArrayList<Integer>> arl = new ArrayList<>();
+        if (pRoot == null) return arl;
+        ArrayDeque<TreeNode> deque = new ArrayDeque<>();
+        deque.add(pRoot);
+        int count = 1; // 记录层数
+        while (!deque.isEmpty()) {
+            int n = deque.size();
+            ArrayList<Integer> iList = new ArrayList<>();// 遍历当前队列
+            for (int i = 0; i < n; i++) {
+                TreeNode node = deque.pop();
+                int m = count % 2;
+                iList.add(m * iList.size(), node.val);
+                if (node.left != null) deque.add(node.left);
+                if (node.right != null) deque.add(node.right);
+            }// 层数为奇数末尾添加元素，层数为偶数头部添加元素
+            arl.add(iList);
+            count++;
+        }
+        return arl;
+    }
+}
