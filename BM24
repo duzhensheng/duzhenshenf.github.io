@@ -1,0 +1,50 @@
+import java.util.*;
+
+/*
+ * public class TreeNode {
+ *   int val = 0;
+ *   TreeNode left = null;
+ *   TreeNode right = null;
+ *   public TreeNode(int val) {
+ *     this.val = val;
+ *   }
+ * }
+ */
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param root TreeNode类 
+     * @return int整型一维数组
+     */
+    public int[] inorderTraversal (TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        while(root != null){
+            if(root.left != null){
+                TreeNode pre = root.left;
+                while(pre.right != null && pre.right != root){
+                    pre = pre.right;
+                }
+                if(pre.right != root){
+                   pre.right = root;
+                   root = root.left;
+                }else{
+                    pre.right = null;
+                    list.add(root.val);
+                    root = root.right;
+                }
+            }else{
+                list.add(root.val);//list列表添加节点值
+                root = root.right;
+            }
+        }
+        int[] numbers = new int[list.size()];
+        int i = 0;
+        for(int val : list){
+           numbers[i++] = val;
+        }//等同于for(int i = 0; i < list.length; i++)
+        return numbers;
+    }
+}
