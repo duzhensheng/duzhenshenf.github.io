@@ -1,0 +1,45 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 求二叉树的右视图
+     * @param xianxu int整型一维数组 先序遍历
+     * @param zhongxu int整型一维数组 中序遍历
+     * @return int整型一维数组
+     */
+    List<Integer> l = new ArrayList<>();
+    public int[] solve (int[] xianxu, int[] zhongxu) {
+    TreeNode root = help(xianxu,0,xianxu.length-1,zhongxu,0,zhongxu.length-1);
+    dfs(root,0);
+    int[] arr = new int[l.size()];
+    for(int i=0; i<l.size(); i++){
+        arr[i] = l.get(i);
+    }
+    return arr;
+}
+ 
+TreeNode help(int[] pre, int left0, int right0, int[] vin, int left1, int right1){
+    if(left0>=pre.length || left1>=vin.length || left0 > right0 || left1 > right1) return null;
+    TreeNode root = new TreeNode(pre[left0]);
+    int count = left1;
+    while(vin[count]!=pre[left0]){
+        count++;
+    }
+    int length = count-left1;
+    root.left = help(pre,left0+1,left0+length,vin,left1,left1+length-1);
+    root.right = help(pre,left0+length+1,right0,vin,left1+length+1,right1);
+    return root;
+}
+ 
+void dfs(TreeNode root,int depth){
+    //深度优先遍历（根-右-左）
+    if(root==null) return;
+    if(depth==l.size()) l.add(root.val);
+    depth++;
+     
+    dfs(root.right,depth);
+    dfs(root.left,depth);
+    }
+}
