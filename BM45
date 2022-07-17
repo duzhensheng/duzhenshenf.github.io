@@ -1,0 +1,26 @@
+import java.util.*;
+public class Solution {
+    public ArrayList<Integer> maxInWindows(int [] num, int size) {
+        LinkedList<Integer> queue = new LinkedList<>();
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        int cnt=0 ,len=num.length;
+        while(cnt<size && cnt<len){
+            while(!queue.isEmpty() && num[queue.getLast()]<num[cnt]){
+                queue.removeLast();
+            }
+            queue.add(cnt++);
+        }
+        while(cnt<len){
+            res.add(num[queue.peek()]);
+            if(queue.getFirst()+size==cnt){
+                queue.removeFirst();
+            }
+            while(!queue.isEmpty() && num[queue.getLast()]<num[cnt]){
+                queue.removeLast();
+            }
+            queue.add(cnt++);
+        }
+        res.add(num[queue.peek()]);
+        return res;    
+    }
+}
