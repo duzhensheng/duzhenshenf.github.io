@@ -1,0 +1,22 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param numbers int整型一维数组 
+     * @param target int整型 
+     * @return int整型一维数组
+     */
+    public int[] twoSum (int[] numbers, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i< numbers.length; i++) {
+            int num = target - numbers[i];
+            if(map.containsKey(num)) {//如果hashmap中包含target - numbers[i]，则找到这两个数，返回下标
+                return new int[] {map.get(num)+1,i+1};//注意：返回的下标要从1开始
+            }
+            map.put(numbers[i], i);//将numbers[]数组中的值和下标存入hashmap中
+        }
+        return null;
+    }
+}
