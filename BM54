@@ -1,0 +1,35 @@
+import java.util.*;
+public class Solution {
+    public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
+    Arrays.sort(num);
+        ArrayList<ArrayList<Integer>> result=new ArrayList<ArrayList<Integer>>();        
+            for(int i=0;i<num.length;i++){//负数区 选一个则，必须在 正数区选一个，或者选两个
+            if(num[i]>0){                
+                break;//非正数选完代表选完
+            }
+            if(i!=0&&num[i]==num[i-1]){               
+                continue; //去重
+            }             
+            int start=i+1;//两数求和
+            int end=num.length-1;
+            while(start<end){                
+                while(start<end&&num[i]+num[start]+num[end]>0){
+                    end--;//先左移 因为排序原因 start 为 相对于 i 第二小值
+                }
+                if(start<end&&num[i]+num[start]+num[end]==0){
+                     ArrayList<Integer> item=new ArrayList<Integer>();
+                     item.add(num[i]);
+                     item.add(num[start]);
+                     item.add(num[end]);
+                     result.add(item);                     
+                    while(start<end&&item.get(1)==num[start]){
+                        start++;//右移去重
+                    }
+                }else{                    
+                    start++;//右移增大整体数
+                }
+            } 
+        } 
+        return result;    
+    }
+}
