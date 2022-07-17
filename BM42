@@ -1,0 +1,22 @@
+import java.util.*;
+import java.util.Stack;
+
+public class Solution {
+    Stack<Integer> stack1 = new Stack<Integer>();
+    Stack<Integer> stack2 = new Stack<Integer>();
+    
+    public void push(int node) {
+        stack1.push(node);//栈1入栈，用作队列队尾
+    }
+    public int pop() {
+        while (!stack2.isEmpty()) {
+            return stack2.pop();//如果stack2不为空，先让元素出栈
+        }
+        while (!stack1.empty()) {
+            int temp = stack1.pop();
+            stack2.push(temp);
+        }//遍历stack1，出栈并入栈到stack2
+        int res = stack2.pop();
+        return res;//出栈2，用作队头
+    }
+}
