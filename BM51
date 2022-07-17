@@ -1,0 +1,19 @@
+import java.util.*;
+public class Solution {
+    public int MoreThanHalfNum_Solution(int [] array) {
+        int n = array.length;
+        int count = 0;
+        int res = -1;
+        for (int i = 0; i < n; i++) {
+            if (count == 0){
+                res = array[i];
+                count ++;
+            }else if (array[i] != res){
+                count--;
+            }else if (array[i] == res){
+                count ++;
+            }
+        }
+        return res;    
+    }
+}
