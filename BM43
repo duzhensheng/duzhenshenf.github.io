@@ -1,0 +1,31 @@
+import java.util.*;
+import java.util.Stack;
+
+public class Solution {
+    private Stack<Integer> stack = new Stack<Integer>();//正常栈操作
+    private Stack<Integer> mins = new Stack<Integer>();//保存最小值栈
+    public void push(int node) {
+        stack.push(node);
+        if(mins.isEmpty() || node <= mins.peek())
+             mins.push(node);//最小值栈为空或元素小于最小值栈顶元素则入栈
+    }
+    
+    public void pop() {
+        if(stack.peek().equals(mins.peek()))
+             mins.pop();
+         stack.pop();//两个栈顶元素相同则最小值栈顶也需要弹出
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int min() {
+        return mins.peek();
+    }
+}
+//此栈包含的方法有：
+//push(value):将value压入栈中
+//pop():弹出栈顶元素
+//top():获取栈顶元素
+//min():获取栈中最小元素
