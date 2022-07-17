@@ -1,0 +1,38 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 递增路径的最大长度
+     * @param matrix int整型二维数组 描述矩阵的每个数
+     * @return int整型
+     */
+    int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+    int n, m, maxLen;
+    public int solve (int[][] matrix) {
+        n = matrix.length;
+      m = matrix[0].length;
+      maxLen = 0;
+       
+      for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+          solveRec(i, j, 0, matrix);
+        }
+      }
+      return maxLen;
+    }  
+    public void solveRec(int i, int j, int len, int[][] matrix) {
+      if (++len > maxLen)
+        maxLen = len;
+       
+      for (int[] dir : directions) {
+        int i_next = i + dir[0], j_next = j + dir[1];
+        if (i_next < 0 || i_next >= n || j_next < 0 || j_next >= m)
+          continue;
+        if (matrix[i_next][j_next] <= matrix[i][j])
+          continue;
+        solveRec(i_next, j_next, len, matrix);
+      }
+    }
+}
