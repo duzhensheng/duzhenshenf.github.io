@@ -1,0 +1,32 @@
+
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 解码
+     * @param nums string字符串 数字串
+     * @return int整型
+     */
+    public int solve (String nums) {
+        int n = nums.length();
+        int[] dp = new int[n+1];    
+         dp[0] = 1;
+        dp[1] = nums.charAt(0) == '0' ? 0:1;
+        for(int i = 2;i <= n;i ++){
+         char pre = nums.charAt(i-2);
+         char cur = nums.charAt(i-1);
+         dp[i] = dp[i-1];
+         if(cur == '0'){
+             if(pre != '1' && pre != '2'){
+                 return 0;
+             }
+         }else{
+             if(pre == '2' && cur <= '6' || pre == '1'){
+                 dp[i] = dp[i-1]+dp[i-2];
+             }
+         }
+        }
+        return dp[n];
+    }
+}
