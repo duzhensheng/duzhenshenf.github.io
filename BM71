@@ -1,0 +1,30 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 给定数组的最长严格上升子序列的长度。
+     * @param arr int整型一维数组 给定的数组
+     * @return int整型
+     */
+    public int LIS (int[] arr) {
+       if (arr.length <= 1) {
+            return arr.length;
+        }
+        int n = arr.length;     
+        int[] dp = new int[n + 1];//dp[i] 表示以第i个数组元素结尾的部分，最大上升子序列长度
+        Arrays.fill(dp, 1, n+1, 1);// dp[i] = dp[j] + 1  a[j]是i前面小于a[i]的第一个元素
+        int i, j = 0,maxAns = 1;
+        for (i = 2; i <= n; i++) {
+            for (j = 1; j < i; j++) {
+                if (arr[j - 1] < arr[i - 1]) {
+                    dp[i] = Math.max(dp[i],dp[j]+1);
+                }
+            }
+            maxAns = Math.max(maxAns,dp[i]);//最大值不一定是dp[n]
+        }
+        return maxAns;
+    }
+}
