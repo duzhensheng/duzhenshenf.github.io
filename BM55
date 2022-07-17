@@ -1,0 +1,31 @@
+import java.util.*;
+
+public class Solution {
+    public ArrayList<ArrayList<Integer>> permute(int[] num) {
+    Arrays.sort(num);//先按字典顺序排列
+        ArrayList<ArrayList<Integer>>   res=new ArrayList<ArrayList<Integer>>();//保存结果
+        ArrayList<Integer> nums=new ArrayList<Integer>();
+        for(int i=0;i<num.length;i++){
+            nums.add(num[i]);//数组添加至链表
+        }
+        recursion(res,nums,0);
+        return res;
+         
+    }
+    public void swap(ArrayList<Integer> num,int i1,int i2){
+        int temp=num.get(i1);
+        num.set(i1,num.get(i2));
+        num.set(i2,temp);
+    }
+    public void recursion(ArrayList<ArrayList<Integer>> res,ArrayList<Integer> num,int index){
+        if(index==num.size()-1){//索引到末尾，找到一种排列，直接添加
+            res.add(num);
+        }else{
+            for(int i=index;i<num.size();i++){//遍历链表位置
+                swap(num,i,index);//当前交换自身
+                recursion(res,num,index+1);//继续向下搜寻
+                swap(num,i,index);//回溯，返回初始位置，i开始变化，进行下来一轮交换
+            }
+        }    
+    }
+}
