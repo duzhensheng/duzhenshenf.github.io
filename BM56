@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Solution {
+    LinkedList<Integer> tmp = new LinkedList<>();
+    ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+    public ArrayList<ArrayList<Integer>> permuteUnique(int[] num) {
+        int n = num.length;
+        Arrays.sort(num); // 排序方便字典序上升
+        dfs(num);
+        return res;
+    }
+     
+    public void dfs(int[] num){
+        int n = num.length;
+        if (tmp.size() == n) { // 递归出口
+            ArrayList<Integer> list = new ArrayList<>();
+            for (int i : tmp) {
+                list.add(num[i]);
+            }
+            res.add(list);
+            return;
+        }
+        boolean[] visit = new boolean[7]; // -1 --> 5 。记录该层此数字有没有被遍历过
+        for (int i = 0; i < n; ++i) {
+            if (tmp.contains(i) || visit[num[i] + 1]) continue;
+            tmp.add(i);
+            visit[num[i] + 1] = true;
+            dfs(num);
+            tmp.removeLast();
+        }    
+    }
+}
