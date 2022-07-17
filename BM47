@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Solution {
+    public int findKth(int[] a, int n, int K) {
+      return quickSort(a, 0, n - 1, K);
+    }
+     
+    private int quickSort(int[] nums, int low, int high, int target) {
+        int i = low, j = high;
+        // 随机选取枢轴，并将它与num[i]交换
+        int rand = (int)(low + Math.random() * (high - low + 1));
+        int temp = nums[rand];
+        nums[rand] = nums[i];
+        nums[i] = temp;
+        int pivot = nums[i];
+        while (i < j) {
+            while (i < j && nums[j] < pivot) j--;
+            if (i < j) {
+                nums[i++] = nums[j];
+            }
+            while (i < j && nums[i] >= pivot) i++;
+            if (i < j) {
+                nums[j--] = nums[i];
+            }
+        }
+        nums[i] = pivot;
+        if (i == target - 1) {
+            return nums[i];
+        } else if (i < target - 1) {
+            return quickSort(nums, i + 1, high, target);
+        } else {
+            return quickSort(nums, low, i - 1, target);
+        }
+    }
+}
