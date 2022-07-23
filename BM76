@@ -1,0 +1,54 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param str string字符串 
+     * @param pattern string字符串 
+     * @return bool布尔型
+     */
+    public boolean match (String str, String pattern) {
+        if(str==null||pattern==null){
+            return false;
+        }
+        int n=str.length();
+        int m=pattern.length();
+        char[]s=str.toCharArray();
+        char[]p=pattern.toCharArray();
+        boolean [][]dp=new boolean[n+1][m+1];
+        dp[0][0]=true;
+        for(int i=0;i<m;i++){  //当s长度为0的时候做初始化           
+            if((p[i]=='*')&&(dp[0][i-1]==true)){   //跳过之前的那个元素所以要dp[0][i-1]
+                dp[0][i+1]=true;
+            }
+        }
+        //当p长度为0的时候，肯定都是false
+        for(int i=1;i<=n;i++){
+            char chS=s[i-1];
+            for(int j=1;j<=m;j++){
+                char chP=p[j-1];
+                if(chP=='.'||chP==chS){
+                    dp[i][j]=dp[i-1][j-1];
+                }
+                else if(chP!=chS&&chP!='*'){
+                    dp[i][j]=false;
+                }
+                else if(chP=='*'){
+                    if(p[j-2]!=s[i-1]&&p[j-2]!='.'){
+                        dp[i][j]=dp[i][j-2];
+                    }
+                    else{
+                        dp[i][j]=dp[i][j-1]||dp[i][j-2]||dp[i-1][j];
+                    }
+                }
+                 
+            }
+        }
+        return dp[n][m];
+    }
+}
+//1.模式中的字符'.'表示任意一个字符
+//2.模式中的字符'*'表示它前面的字符可以出现任意次（包含0次）。
