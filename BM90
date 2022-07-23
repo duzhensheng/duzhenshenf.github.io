@@ -1,0 +1,54 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param S string字符串 
+     * @param T string字符串 
+     * @return string字符串
+     */
+    public String minWindow (String S, String T) {
+         if (T.length() > S.length()) {
+            return "";
+        }
+        Map<Character, Integer> fix = new HashMap<>();
+        for (char c : T.toCharArray()) {
+            fix.put(c, fix.getOrDefault(c, 0) + 1);
+        }
+        Map<Character, Integer> window = new HashMap<>();
+        int left = 0;
+        int right = 0;
+        int len = S.length();
+        int start = 0;
+        int end = 0;
+        int size = 0;
+        int min = Integer.MAX_VALUE;
+        while (right < len) {
+            char c = S.charAt(right);
+            if (fix.get(c) != null) {
+                window.put(c, window.getOrDefault(c, 0) + 1);
+                if (window.get(c).equals(fix.get(c))) { // 关键，必须个数相等，使size=fix.size()时，window==fix
+                    size++;
+                }
+            } 
+            right++; 
+            while (size == fix.size()) {
+                if (right - left < min) {
+                    min = right - left;
+                    start = left;
+                    end = right;
+                }
+                char c1 = S.charAt(left);
+                if (fix.get(c1) != null) {
+                    window.put(c1, window.get(c1) - 1);
+                    if (window.get(c1) < fix.get(c1)) { // 关键，必须个数相等。
+                        size--;
+                    }
+                }
+                left++;
+            }
+        }
+        return end - start == -1 ? "" : S.substring(start, end);
+    }
+}
