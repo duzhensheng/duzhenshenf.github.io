@@ -1,0 +1,24 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param prices int整型一维数组 
+     * @return int整型
+     */
+    public int maxProfit (int[] prices) {
+       int res = 0;
+        int len = prices.length;
+        int dp =  prices[0];
+        int buy = prices[0];
+        int sell = prices[0];
+        for(int i = 1; i < len; i++){
+            sell = prices[i];
+            if(sell < buy) buy = sell;
+            dp = sell - buy;
+            res = Math.max(dp, res);
+        }
+        return res;
+    }
+}
