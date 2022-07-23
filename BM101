@@ -1,0 +1,72 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * lfu design
+     * @param operators int整型二维数组 ops
+     * @param k int整型 the k
+     * @return int整型一维数组
+     */
+    HashMap<Integer,Integer> vCnt = new LinkedHashMap<Integer,Integer>();
+    HashMap<Integer,Integer> map = new LinkedHashMap<Integer,Integer>();
+    int k;
+    int min = 1;
+    public int[] LFU (int[][] operators, int k) {
+        this.k = k;
+        int resSize = 0;
+        for (int i = 0; i < operators.length; i++) {
+            if (operators[i][0] == 2) {
+                resSize++;
+            }
+        }
+        int len = operators.length;
+        int[] res = new int[resSize];
+        int j = 0;
+        for(int i = 0;i<len;i++){
+            int shu = operators[i][0];
+            if(shu == 1){
+                set(operators[i][1],operators[i][2]);
+            }else{
+                res[j++] = get(operators[i][1]);
+            }
+        }
+        return res;
+    }
+    int cnt = 0;
+  //添加元素
+    void set(int key, int value){
+        if(cnt<k){
+            vCnt.put(key,vCnt.getOrDefault(key,0)+1);
+            map.put(key,value);
+            cnt++;
+        }else{
+            map.remove(getMinKey());
+            vCnt.remove(getMinKey());
+            vCnt.put(key,vCnt.getOrDefault(key,0)+1);
+            map.put(key,value);
+        }
+    }
+  //查找元素
+    int  get(int key){        
+        if(map.containsKey(key)){
+            int val1=vCnt.get(key);
+            vCnt.remove((Integer)key);
+            vCnt.put(key,val1+1);
+            return map.get(key);
+        }
+        else return -1;
+    }
+  //找出最小的数
+    public int getMinKey(){
+        int min  = Integer.MAX_VALUE;
+        int key = -1;
+        for(Map.Entry<Integer, Integer> e:vCnt.entrySet()){
+            if(e.getValue()<min){
+                min = e.getValue();
+                key = e.getKey();
+            }
+        }
+        return key;
+    }
+}
