@@ -1,0 +1,23 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 反转字符串
+     * @param str string字符串 
+     * @return string字符串
+     */
+    public String solve (String str) {
+        char[] chars = str.toCharArray();
+        int left = 0;
+        int right = str.length() - 1;
+         while (left < right) {
+            char temp = chars[left];
+             chars[left] = chars[right];
+            chars[right] = temp;
+            left++;
+            right--;
+    }
+    return new String(chars);
+    }
+}
