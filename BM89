@@ -1,0 +1,33 @@
+import java.util.*;
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
+    ArrayList<Interval> res = new ArrayList<>() ;
+        if(intervals == null || intervals.size() == 0) return res ;
+        //先按start排序
+        Collections.sort(intervals , (int1 ,int2)->int1.start - int2.start) ;
+        int i = 0 ;//指向每一个区间的开始
+        int j = 0 ;//寻找合并区间的 终点
+        while(i < intervals.size()) {
+            int nextEnd = intervals.get(i).end ;//保存每一段区间的最大终点
+            j = i + 1 ;
+            while(j < intervals.size() && intervals.get(j).start <= nextEnd) {
+                //更新最大终点
+                if(intervals.get(j).end > nextEnd) nextEnd = intervals.get(j).end ;
+                j ++ ;
+            }
+            //保存合并后的区间
+            res.add(new Interval(intervals.get(i).start , nextEnd)) ;
+            i = j ;
+        }
+        return res ;    
+    }
+}
