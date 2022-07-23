@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Solution {
+    public String trans(String s, int n) {
+        if(s == null || s.length() == 0) return s;       
+        char[] arr = s.toCharArray() ;
+        reverse(arr , 0 , arr.length-1) ;
+        int i = 0 ,j = 0 ;
+        while(i < arr.length) {
+            j = i ;
+            while(j < arr.length && arr[j] != ' ') {
+                if(arr[j] <= 'z' && arr[j] >= 'a') {
+                    arr[j] = (char)(arr[j] - 'a' + 'A') ;
+                } else {
+                    arr[j] = (char)(arr[j] - 'A' + 'a') ;
+                }
+                j ++ ;
+            } 
+            reverse(arr , i , j - 1) ;
+            i = j + 1 ;//更新起点
+        }
+        return new String(arr) ;
+    }
+    public void reverse(char[] arr , int start , int end) {
+        int i = start ;
+        int j = end ;
+        while(i < j) {
+            char t = arr[i] ;
+            arr[i] = arr[j] ;
+            arr[j] = t ;
+            i ++ ;
+            j -- ;
+        }
+    }
+}
