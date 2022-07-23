@@ -1,0 +1,33 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param s string字符串 
+     * @return string字符串ArrayList
+     */
+    public ArrayList<String> restoreIpAddresses (String s) {
+        ArrayList<String> res = new ArrayList<String>();
+        int n = s.length();        
+        for(int i = 1; i < 4 && i < n - 2; i++){//遍历IP的点可能的位置（第一个点）            
+            for(int j = i + 1; j < i + 4 && j < n - 1; j++){//第二个点的位置                
+                for(int k = j + 1; k < j + 4 && k < n; k++){//第三个点的位置                    
+                    if(n - k >= 4)//最后一段剩余数字不能超过3
+                        continue;                    
+                    String a = s.substring(0, i);//从点的位置分段截取
+                    String b = s.substring(i, j);
+                    String c = s.substring(j, k);
+                    String d = s.substring(k);
+                    if(Integer.parseInt(a) > 255 || Integer.parseInt(b) > 255 || Integer.parseInt(c) > 255 || Integer.parseInt(d) > 255)//IP每个数字不大于255
+                        continue;
+                    if((a.length() != 1 && a.charAt(0) == '0') || (b.length() != 1 && b.charAt(0) == '0') ||  (c.length() != 1 && c.charAt(0) == '0') || (d.length() != 1 && d.charAt(0) == '0'))//排除前导0的情况
+                        continue;
+                    String temp = a + "." + b + "." + c + "." + d;//组装IP地址
+                    res.add(temp);
+                }
+            }
+        }
+        return res;
+    }
+}
