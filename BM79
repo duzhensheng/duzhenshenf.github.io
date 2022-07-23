@@ -1,0 +1,30 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param nums int整型一维数组 
+     * @return int整型
+     */
+    public int rob (int[] nums) {
+       if(nums == null || nums.length == 0) return 0 ;
+        if(nums.length == 1) return nums[0] ;
+        int len = nums.length ;        
+        int f1[] = new int[len] ;//可以偷第一家的情况(不可以偷最后一家)
+        f1[0] = 0 ;
+        f1[1] = nums[0] ;
+        for(int i = 2 ; i < len ; i++) {
+            f1[i] = Math.max(f1[i-1] , f1[i-2] + nums[i-1]) ;
+        }       
+        int f2[] = new int[len] ;//不可以偷第一家的情况(可以偷最后一家)
+        f2[0] = 0 ;
+        f2[1] = nums[1] ;
+        for(int i = 2 ; i < len ; i ++) {
+            f2[i] = Math.max(f2[i-1] , f2[i-2] + nums[i]) ;
+        }
+        return Math.max(f1[len-1] , f2[len-1]) ;
+    }
+}
