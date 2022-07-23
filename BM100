@@ -1,0 +1,43 @@
+import java.util.*;
+
+
+public class Solution {
+    Map<Integer, Integer> map;
+    int capacity;
+    public Solution(int capacity) {
+          this.capacity = capacity;
+          map = new LinkedHashMap<>(capacity);
+
+    }
+
+    public int get(int key) {
+         Integer value = map.get(key);
+        if(value != null){ // 如果已经有此key
+            if(map.size()>1) {
+                map.remove(key); // 删除原先的key
+                map.put(key, value); // 添加key到最后
+            }
+        } else {
+            return -1;
+        }
+        return value;
+    }
+
+    public void set(int key, int value) {
+         if (map.containsKey(key)){ // 已经有此key
+            map.remove(key); // 删除原先的key
+        }
+        else if(map.size()>=capacity) { // 容量达到了最大
+            Integer firstKey = map.keySet().iterator().next();
+            map.remove(firstKey); // 删除第一个key
+        }
+        map.put(key, value); // 添加key到最后
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution solution = new Solution(capacity);
+ * int output = solution.get(key);
+ * solution.set(key,value);
+ */
