@@ -1,0 +1,39 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * max water
+     * @param arr int整型一维数组 the array
+     * @return long长整型
+     */
+    public long maxWater (int[] height) {
+        int n = height.length;
+        long ans = 0;
+        // 由于预处理最值的时候，我们会直接访问到 height[0] 或者 height[n - 1]，因此要特判一下
+        if (n == 0) return ans;
+ 
+        // 预处理每个位置左边的最值
+        int[] lm = new int[n];
+        lm[0] = height[0];
+        for (int i = 1; i < n; i++) lm[i] = Math.max(height[i], lm[i - 1]);
+ 
+        // 预处理每个位置右边的最值
+        int[] rm = new int[n];
+        rm[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) rm[i] = Math.max(height[i], rm[i + 1]);
+ 
+        for (int i = 1; i < n - 1; i++) {
+            int cur = height[i];
+ 
+            int l = lm[i];
+            if (l <= cur) continue;
+ 
+            int r = rm[i];
+            if (r <= cur) continue;
+ 
+            ans += Math.min(l, r) - cur;
+        }
+        return ans;
+    }
+}
