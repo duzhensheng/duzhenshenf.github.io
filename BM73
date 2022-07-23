@@ -1,0 +1,53 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param A string字符串 
+     * @return int整型
+     */
+    public int getLongestPalindrome (String A) {
+    if(A.length()<2){
+            return A.length();
+        }
+        if(A.length()==2){
+            if (A.charAt(0)==A.charAt(1)){
+                return 2;
+            }
+            return 1;
+        }
+        int left = 0;
+        int right = 0;
+        int  max = 1;        
+        for(int i = 0;i <A.length();i++){
+            left = i-1;right=i+1;//奇数
+            int temp = 1;
+            while(left>-1&&right<A.length()&&A.charAt(left)==A.charAt(right)){
+                temp+=2;
+                left--;
+                right++;
+            }
+            max=max<temp?temp:max;
+        }       
+        for(int i = 0;i <A.length();i++){
+            left = i-1;right=i+2;//偶数
+            int temp = 2;
+            int count = 0;  //若一次都进入判断 将temp清空初始值
+            while(left>-1&&right<A.length()&&A.charAt(left)==A.charAt(right)&&A.charAt(i)==A.charAt(i+1)){
+                count++;
+                temp+=2;
+                max=max<temp?temp:max;
+                left--;
+                right++;
+            }
+            if (count<1){
+                temp=1;
+            }
+            max=max<temp?temp:max;
+        }
+        return max;
+    }
+}
