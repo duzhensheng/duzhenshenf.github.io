@@ -1,0 +1,38 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 计算成功举办活动需要多少名主持人
+     * @param n int整型 有n个活动
+     * @param startEnd int整型二维数组 startEnd[i][0]用于表示第i个活动的开始时间，startEnd[i][1]表示第i个活动的结束时间
+     * @return int整型
+     */
+    public int minmumNumberOfHost (int n, int[][] startEnd) {
+        //初始化两个数组，分别记录开始时间和结束时间
+        int[] start=new int[n];
+        int[] end=new int[n]; 
+        //将活动的开始和结束时间赋值道start和end数组
+        for(int i=0;i<n;i++){
+            start[i]=startEnd[i][0];
+            end[i]=startEnd[i][1];
+        }
+        //按从小到大的顺序对start和end数组排序
+        Arrays.sort(start);
+        Arrays.sort(end); 
+        int res=0,index=0;
+        for(int i=0;i<n;i++){
+            //如果大于等于当前最小的结束时间，说明当前主持人可以搞定
+            if(start[i]>=end[index]){
+                index++;
+            }
+            //否则，需要新增主持人
+            else{
+                res++;
+            }
+        }
+        return res;
+    }
+}
