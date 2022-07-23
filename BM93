@@ -1,0 +1,22 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param arr int整型一维数组 the array
+     * @return int整型
+     */
+    public int maxLength (int[] arr) {
+        int maxLen = 0;
+        Set<Integer> set = new HashSet<>();
+        int left = 0, right = 0;
+        while (right < arr.length) {
+            while (set.contains(arr[right]))
+             set.remove(arr[left++]);
+            set.add(arr[right++]);
+            maxLen = Math.max(maxLen, right - left);
+    }
+    return maxLen;
+    }
+}
