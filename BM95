@@ -1,0 +1,31 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * pick candy
+     * @param arr int整型一维数组 the array
+     * @return int整型
+     */
+    public int candy (int[] arr) {
+        int N = arr.length;
+        if(N == 1) {
+            return 1;
+        }
+        int[] dp = new int[N];
+        Arrays.fill(dp, 1);
+        for(int i = 1; i < N; i++) {
+            if(arr[i - 1] < arr[i]) {
+                dp[i] = dp[i - 1] + 1;
+            }
+        }
+        int ans = dp[N - 1];
+        for(int i = N - 2; i > -1; i--) {
+            if(arr[i] > arr[i + 1] && dp[i] <= dp[i + 1]) {
+                dp[i] = dp[i + 1] + 1;
+            }
+            ans += dp[i];
+        }
+        return ans;
+    }
+}
