@@ -1,0 +1,96 @@
+turn checkIPV6(IP) ;
+        } else {
+            return "Neither" ;
+        }
+    }import java.util.*;
+
+
+public class Solution {
+    /**
+     * 验证IP地址
+     * @param IP string字符串 一个IP地址字符串
+     * @return string字符串
+     */
+    public String solve (String IP) {
+        if(IP == null || IP.length() < 7) return "Neither" ;
+        if(IP.contains(".")) {//按照IPV4校验
+            return checkIPV4(IP) ;
+        } else if(IP.contains(":")) {//按照IPV6校验
+            re
+    //验证IPV6的字符串是否合法
+    public String checkIPV6(String IP) {
+        char[] arr = IP.toCharArray() ;
+        int i = 0 ;
+        int j = 0 ;
+        int count = 8 ;
+        while(i < arr.length) {
+            j = i ;
+            while(j < arr.length && arr[j] != ':') {
+                j ++ ;
+            }
+            if(!isOK6(arr , i , j - 1)) return "Neither" ;
+            i = j + 1 ;
+            count -- ;
+        }
+        if(count == 0 && i == arr.length + 1) {
+            return "IPv6" ;          
+        } else {
+            return "Neither" ;
+   
+        }
+    }
+    //验证IPV6的每一段是否合法
+    public boolean isOK6(char[] arr , int i , int j) {
+        int len = j - i + 1 ;
+        if(len < 1) return false ;
+        if(len > 4) return false ;
+        for(int k = i ; k <= j ; k ++) {
+            if(!((arr[k] >= '0' && arr[k] <= '9') || (arr[k] >= 'a' && arr[k] <= 'f') || (arr[k] >= 'A' && arr[k] <= 'F'))) {
+                return false ;
+            }
+        }
+        return true ;
+    }
+    //验证IPV4的字符串是否合法
+    public String checkIPV4(String IP) {
+        char[] arr = IP.toCharArray() ;
+        int i = 0 ;
+        int j = 0 ;
+        int count = 4 ;
+        while(i < arr.length) {
+            j = i ;
+            while(j < arr.length && arr[j] != '.') {
+                j ++ ;
+            }
+            if(!isOK4(arr , i , j-1)) return "Neither" ;
+            i = j + 1 ;
+            count -- ;
+        }
+        if(count == 0 && i == arr.length + 1) {
+            return "IPv4" ;
+        } else {
+            return "Neither" ;
+             
+        }
+    }
+    //验证IPV4的每一段是否合法
+    public boolean isOK4(char[] arr , int i , int j) {
+        int len = j - i + 1 ;
+        if(len < 1) return false ;
+        if(arr[i] == '0' && len > 1) return false ;
+        int base = 1 ;
+        int count = 0 ;
+        for(int k = j ; k >= i ; --k) {
+            if(!(arr[k] >= '0' && arr[k] <= '9')) {
+                return false ;
+            }
+            count += (arr[k]-'0') * base ;
+            base *= 10 ;
+        }
+        if(count >= 0 && count <= 255) {
+            return true ;
+        } else {
+            return false ;
+        }
+    }
+}
