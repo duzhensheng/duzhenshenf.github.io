@@ -1,0 +1,32 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param str1 string字符串 
+     * @param str2 string字符串 
+     * @return int整型
+     */
+    public int editDistance (String str1, String str2) {
+       int[][] dp = new int[str1.length()+1][str2.length()+1];  //定义动规数组  
+        for(int i=1; i<=str1.length(); i++){// 初始化
+            dp[i][0] = i;
+        }
+        for(int i=1; i<=str2.length(); i++){// 初始化
+             dp[0][i] = i;
+        }
+        for(int i=1; i<=str1.length(); i++){
+            for(int j=1; j<=str2.length(); j++){
+                if(str1.charAt(i-1)==str2.charAt(j-1)){//第一种情况
+                    dp[i][j] = dp[i-1][j-1];
+                }else{//第二种情况
+                    dp[i][j] = Math.min(dp[i-1][j]+1, Math.min(dp[i-1][j-1]+1, dp[i][j-1]+1));//状态转移方程
+                }
+            }
+        }
+        return dp[str1.length()][str2.length()];
+    }
+}
