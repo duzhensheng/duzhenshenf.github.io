@@ -1,0 +1,35 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param strs string字符串一维数组 
+     * @return string字符串
+     */
+    public String longestCommonPrefix (String[] strs) {
+       // 定义结果集
+        StringBuilder res = new StringBuilder();
+        // 数组性校验，如果为空直接终止了。
+        if(strs.length==0) return res.toString();
+         
+        // 假设首元素就是最长公共前缀
+        String firstStr=strs[0];
+        // 遍历这个首元素
+        for(int i=0;i<firstStr.length();i++){
+            // 每遍历一次，获取对应下标的字符。
+            char c = firstStr.charAt(i);
+            // 拿着这个字符 与 数组剩余的字符串比较 对应下标的位置看看是否相等！ 如果剩余字符串对应的i下标位置都相等，说明当前这个字符是符合的。添加到结果集中。 如果说某一个不相等 或者 当前i下标超过任何一个字符串的长度都是不符合的。直接终止程序！
+            for(int j=1;j<strs.length;j++){
+                String nextStr=strs[j];
+                if(!(i<nextStr.length() && c==nextStr.charAt(i))){
+                    // 不符合
+                    return res.toString();
+                }
+            }
+            // 程序能执行到此处，说明当前字符是符合结果集的
+            res.append(c);
+        }
+        return res.toString();
+    }
+}
