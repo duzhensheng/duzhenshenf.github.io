@@ -1,0 +1,45 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param s string字符串 
+     * @return int整型
+     */
+    public int longestValidParentheses (String s) {
+        int max=0;      
+        int left=0,right=0;//分别记录左右括号出现次数      
+        for(int i=0;i<s.length();i++){//正向遍历
+            if(s.charAt(i)=='('){
+                left++;
+            }
+            else{
+                right++;
+            }           
+            if(left==right){//如果左右括号相等，则更新格式正确的括号子串长度，取较大者
+                max=Math.max(max,right*2);
+            }           
+            else if(left<right){//如果左括号数小于右括号数，说明有不合法右括号，重置为0
+                left=right=0;
+            }
+        }
+        left=right=0;
+        //逆向遍历
+        for(int i=s.length()-1;i>=0;i--){
+            if(s.charAt(i)=='('){
+                left++;
+            }
+            else{
+                right++;
+            }            
+            if(left==right){//如果左右括号相等，则更新格式正确的括号子串长度，取较大者
+                max=Math.max(max,left*2);
+            }           
+            else if(left>right){//如果左括号数大于右括号数，说明有不合法左括号，重置为0
+                left=right=0;
+            }
+        }        
+        return max;
+    }
+}
